@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Movimientos - La Finca</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="estilos/estilos.css">
+</head>
+<body>
+
+    <!-- Barra de Navegación Actualizada -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Inmobiliaria La Finca</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="inmuebles.html">Gestión de Inmuebles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="personas.html">Gestión de Personas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="operaciones.html">Gestión de Operaciones</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="recibos.html">Gestión de Recibos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="movimientos.html">Gestión de Movimientos</a>
+                    </li>
+                </ul>
+                <!-- Sección de Usuario y Salir -->
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <span class="navbar-text text-white me-3" id="usuario-nombre">
+                            Cargando...
+                        </span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="btn-salir">Salir</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido Principal -->
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2>Movimientos Bancarios</h2>
+            <button class="btn btn-primary" id="btn-nuevo-movimiento" data-bs-toggle="modal" data-bs-target="#modal-movimiento">
+                Registrar Movimiento
+            </button>
+        </div>
+        <hr>
+        <!-- Listado dinámico de movimientos -->
+        <div class="table-responsive">
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Fecha</th>
+                        <th>Tipo</th>
+                        <th>Concepto</th>
+                        <th>Inmueble Asociado</th>
+                        <th>Monto</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="listado-movimientos">
+                    <!-- Las filas se cargarán aquí -->
+                    <tr><td colspan="7" class="text-center">Cargando movimientos...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal para Añadir/Editar Movimiento -->
+    <div class="modal fade" id="modal-movimiento" tabindex="-1" aria-labelledby="titulo-modal-movimiento" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form id="formulario-movimiento">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="titulo-modal-movimiento">Datos del Movimiento</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Campo oculto para el ID (para editar) -->
+                        <input type="hidden" id="id_movimiento" name="id_movimiento">
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="tipo_movimiento" class="form-label">Tipo de Movimiento</label>
+                                <select class="form-select" id="tipo_movimiento" name="tipo_movimiento" required>
+                                    <option value="">Seleccione...</option>
+                                    <option value="Ingreso">Ingreso</option>
+                                    <option value="Gasto">Gasto</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="fecha" class="form-label">Fecha</label>
+                                <input type="date" class="form-control" id="fecha" name="fecha" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_inmueble" class="form-label">Inmueble Asociado</label>
+                            <select class="form-select" id="id_inmueble" name="id_inmueble" required>
+                                <option value="">Cargando inmuebles...</option>
+                                <!-- Opciones de inmuebles se cargarán aquí -->
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_recibo" class="form-label">Recibo Asociado (Opcional, para Ingresos)</label>
+                            <select class="form-select" id="id_recibo" name="id_recibo">
+                                <option value="">Cargando recibos...</option>
+                                <!-- Opciones de recibos se cargarán aquí -->
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="concepto" class="form-label">Concepto</label>
+                            <input type="text" class="form-control" id="concepto" name="concepto" required placeholder="Ej: Cobro alquiler Noviembre, Reparación plomería, etc.">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="monto" class="form-label">Monto ($)</label>
+                            <input type="number" class="form-control" id="monto" name="monto" step="0.01" required placeholder="0.00">
+                            <small class="form-text text-muted">Usar un valor positivo para Ingresos y negativo (ej: -8500) para Gastos.</small>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="banco" class="form-label">Banco (Opcional)</label>
+                                <input type="text" class="form-control" id="banco" name="banco" placeholder="Ej: Banco Municipal">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="cuenta" class="form-label">Nro. de Cuenta (Opcional)</label>
+                                <input type="text" class="form-control" id="cuenta" name="cuenta" placeholder="Ej: C.A. 123456/78">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Guardar Movimiento</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Cargamos los scripts -->
+    <script src="cliente/controladores/auth.js" type="module"></script>
+    <script src="cliente/controladores/gestion-movimientos.js" type="module"></script>
+</body>
+</html>
+

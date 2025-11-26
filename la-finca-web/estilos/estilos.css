@@ -1,0 +1,54 @@
+/* --- Hoja de Estilos Principal (estilos/estilos.css) --- */
+
+/* Estilo para centrar los formularios de login y registro */
+body.d-flex {
+    background-color: #f0f2f5; /* Un fondo gris claro */
+}
+
+.login-card {
+    width: 100%;
+    max-width: 450px; /* Ancho máximo para el formulario */
+    border: none;
+    border-radius: 10px;
+}
+
+/* Estilos generales para las páginas de gestión */
+.navbar {
+    margin-bottom: 1.5rem;
+}
+
+.card {
+    border-radius: 8px;
+    border: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1) !important;
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover; /* Asegura que la imagen cubra el espacio sin deformarse */
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.card-footer {
+    background-color: #f9f9f9;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Clases de botones para acciones */
+.btn-accion {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    margin: 0 2px;
+}
+
